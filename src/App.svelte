@@ -26,8 +26,6 @@
 		elt.style.top = y  + 'px'
 		elt.innerHTML = x + ' ' + y
 
-		
-
 		const px = type === 'vertical' ? y : x
 		pos = 100 * px / size;
 //		dispatch('change');
