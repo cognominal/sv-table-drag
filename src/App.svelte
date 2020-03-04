@@ -17,10 +17,7 @@
     function setPos(event) {
         const { top, left } = refs.container.getBoundingClientRect();
         let x = event.clientX - left, y = event.clientY - top
-        console.log('setPos');
         let elt = coordsElt()
-        console.log(elt)
-        console.log(elt.parentElement)
         elt.style.display = 'block'
         elt.style.left = x + 'px'
         elt.style.top = y  + 'px'
@@ -34,18 +31,13 @@
     function listener(node, act, evtNm, handler) {
         let evtAry
         let action = act == 'rm' ? node.removeEventListener : node.addEventListener
-        if (typeof evtNm == 'string' ) {
-            evtAry = [evtNm]
-        }
+        evtAry = typeof evtNm == 'string' ? [evtNm] : evtNm
         for (const evtNm of evtAry ) {
             action(evtNm, handler, false)
         }
-
     }
 
     function drag(node, callback) {
-        console.log('drag');
-        
         const onDown = event => {
             if (event.type == 'mousedown' && event.which !== 1) return;
 
@@ -59,13 +51,13 @@
 
                dragging = false;
 
-                listener(window, 'rm', [ 'touchmove', 'mousemove' ], callback)
-                listener(window, 'rm', [ 'touchend',  'mouseup'   ], callback)
+                listener(node, 'rm', [ 'touchmove', 'mousemove' ], callback)
+                listener(node, 'rm', [ 'touchend',  'mouseup'   ], callback)
                 // window.removeEventListener('mousemove', callback, false);
                 // window.removeEventListener('mouseup', onmouseup, false);
             };
-            listener(window, 'add',['touchmove', 'mousemove'], callback )
-            listener(window, 'add',['touchmove', 'mousemove'], onUp )
+            listener(node, 'add',['touchmove', 'mousemove'], callback )
+            listener(node, 'add',['touchend', 'mouseup'],    onUp )
             // window.addEventListener('mousemove', callback, false);
             // window.addEventListener('mouseup', onmouseup, false);
         }
@@ -88,22 +80,19 @@
 
 
 
-
-<h3>hi</h3>
-    <div class="container">
-        <table  bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
-
-            {#each table as item, i}
-                <tr>
-                    <td>
-                    {item} {i}
-                    {#if i != table.length -1 }
-                       <hr use:drag={setPos}/>
-                    {/if}	
-                    </td>
-                </tr>
-            {/each}
-        </table>
+<div class="container">
+    <table  bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
+        {#each table as item, i}
+            <tr>
+                <td>
+                {item} {i}
+                {#if i != table.length -1 }
+                   <hr use:drag={setPos}/>
+                {/if}	
+                </td>
+            </tr>
+        {/each}
+    </table>
     <div id="coords"></div>
 </div>
 
