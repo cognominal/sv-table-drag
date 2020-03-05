@@ -14,10 +14,16 @@
     // Code adapted from SplitPane in the REPL
     function coordsElt() { return document.getElementById('coords') 	}
 
-    function setPos(event) {
+    function setPos(e) {
+        function clientX() { return e.ClientX ? e.ClientX : e.touches[0].clientX }
+        function clientY() { return e.ClientY ? e.ClientY : e.touches[0].clientY }
+        
         const { top, left } = refs.container.getBoundingClientRect();
-        let x = event.clientX - left, y = event.clientY - top
+        let x = clientX() - left, y = clientY() - top
         let elt = coordsElt()
+        console.log('stopPropagation');
+        
+        e.stopPropagation()
         elt.style.display = 'block'
         elt.style.left = x + 'px'
         elt.style.top = y  + 'px'
@@ -52,10 +58,12 @@
                dragging = false;
 
                 listener(node, 'rm', [ 'touchmove', 'mousemove' ], callback)
-                listener(node, 'rm', [ 'touchend',  'mouseup'   ], callback)
+                listener(node, 'rm', [ 'touchend',  'mouseup'   ], onUp)
                 // window.removeEventListener('mousemove', callback, false);
                 // window.removeEventListener('mouseup', onmouseup, false);
             };
+            listener(document.body, 'add', 'touchmove', 
+                (e) => { console.log('body'); e.stopPropagation()} )
             listener(node, 'add',['touchmove', 'mousemove'], callback )
             listener(node, 'add',['touchend', 'mouseup'],    onUp )
             // window.addEventListener('mousemove', callback, false);
