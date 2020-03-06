@@ -27,7 +27,7 @@
         const { top, left } = refs.container.getBoundingClientRect();
         let x = clientX() - left, y = clientY() - top
         let elt = coordsElt()
-        console.log('stopPropagation');
+//        console.log('stopPropagation');
         
         e.stopPropagation()
         elt.style.display = 'block'
@@ -103,11 +103,11 @@ a separator to resize borders. Also dabbling with css.
 <div class="container">
     <table  bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
         {#each table as item, i}
-            <tr>
+            <tr class=item>
                 <td>
                 {item} {i}
                 {#if i != table.length -1 }
-                   <hr use:drag={setPos}/>
+                   <hr use:drag={(e) => setPos(e, i)}/>
                 {/if}	
                 </td>
             </tr>
@@ -117,7 +117,10 @@ a separator to resize borders. Also dabbling with css.
 </div>
 
 <style>
-
+    .item {
+        min-height: 1em;
+        height: 2em;
+    }
     .container {
         position: relative;
         display: block;
