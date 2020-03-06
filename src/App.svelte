@@ -96,9 +96,15 @@
 <p>
  Trying to support both mouse and touch events for eventually dragging
 a separator to resize borders. Also dabbling with css.
+
 <a href="https://github.com/cognominal/sv-table-drag/blob/master/src/App.svelte">
     src code
 </a>
+|<br />
+<a href="https://zeit.co/cognominal/drag-experiment">App homepage</a>
+|
+<a href="https://zeit.co/cognominal">cog zeit homepage</a>
+
 </p>
 <div class="container">
     <table  bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
