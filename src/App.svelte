@@ -15,8 +15,14 @@
     function coordsElt() { return document.getElementById('coords') 	}
 
     function setPos(e) {
-        function clientX() { return e.ClientX ? e.ClientX : e.touches[0].clientX }
-        function clientY() { return e.ClientY ? e.ClientY : e.touches[0].clientY }
+        // console.log();
+        
+        function clientX() { 
+            return typeof e.clientX != 'undefined' ? e.clientX : e.touches[0].clientX 
+        }
+        function clientY() { 
+            return typeof e.clientY != 'undefined' ? e.clientY : e.touches[0].clientY 
+        }
         
         const { top, left } = refs.container.getBoundingClientRect();
         let x = clientX() - left, y = clientY() - top
@@ -33,13 +39,13 @@
         pos = 100 * px / size;
 //		dispatch('change');
     }
-
-    function listener(node, act, evtNm, handler) {
+// dubious attempt at huffmanizing
+    function listener(node, act, evtNm, handler, whatever) {
         let evtAry
         let action = act == 'rm' ? node.removeEventListener : node.addEventListener
         evtAry = typeof evtNm == 'string' ? [evtNm] : evtNm
         for (const evtNm of evtAry ) {
-            action(evtNm, handler, false)
+            action(evtNm, handler, whatever ? true : whatever )
         }
     }
 
@@ -87,7 +93,13 @@
 </script>
 
 
-
+<p>
+ Trying to support both mouse and touch events for eventually dragging
+a separator to resize borders. Also dabbling with css.
+<a href="https://github.com/cognominal/sv-table-drag/blob/master/src/App.svelte">
+    src code
+</a>
+</p>
 <div class="container">
     <table  bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
         {#each table as item, i}
