@@ -10,12 +10,14 @@
     let refs = {}
 
     let table = [ 1, 2, 3, 4]
+    document.title = window.location.href
 
     // Code adapted from SplitPane in the REPL
     function coordsElt() { return document.getElementById('coords') 	}
 
-    function setPos(e) {
-        // console.log();
+// in process making it a resize
+    function setPos(e, i) {
+        console.log(e.target);
         
         function clientX() { 
             return typeof e.clientX != 'undefined' ? e.clientX : e.touches[0].clientX 
