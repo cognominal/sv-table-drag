@@ -96,6 +96,7 @@
 <p>
  Trying to support both mouse and touch events for eventually dragging
 a separator to resize borders. Also dabbling with css.
+<span style="color:red;">{window.location.href}</span>
 <br />
 <a href="https://github.com/cognominal/sv-table-drag/blob/master/src/App.svelte">
     src code
