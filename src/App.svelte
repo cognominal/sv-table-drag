@@ -96,10 +96,11 @@
 <p>
  Trying to support both mouse and touch events for eventually dragging
 a separator to resize borders. Also dabbling with css.
-|<br />
+<br />
 <a href="https://github.com/cognominal/sv-table-drag/blob/master/src/App.svelte">
     src code
 </a>
+|
 <a href="https://zeit.co/cognominal/drag-experiment">App homepage</a>
 |
 <a href="https://zeit.co/cognominal">cog zeit homepage</a>
